@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+  <head>
+    
+      <title>The Solar System</title>
+      
+<style>
+    body      { font-family:Arial;}
+    td        { border: 1px gray solid; padding: 5px;}
+    table     { border-collapse: collapse; }
+    div.src   { border:1px gray solid; 
+                display: inline-block; 
+                padding: 5px;
+                font-family: Monaco Courier;
+                font-size: 10px;}
+    div.space { height: 10em; }
+    pre       { border:1px gray solid; }
+</style>
+
+      
+    
+    
+    
+  </head>
+  <body>
+    
+    
+    
+  <pre>
+  -- Lua Source
+  require 'tier.template'
+  local a = tier.Template.load("templates/example2.html")
+  print(a:render{planet="Earth", 
+                 answer=function() return "42" end, 
+                 name="example2.html",
+                 replaced="--replaced by a block--"})
+  </pre>
+  
+  <div>Template Example "example2.html"</div>
+  <p>
+  <div class="src">
+  <span>{%</span>
+  include 'name.html'
+  <span>%}</span>
+  </div>
+  <p>
+  <a href="templates/example2.txt">Template Source</a>
+  <h1>Planetary Intranet</h1>
+  <h2>Hello there, visitor from planet Earth</h2>
+  
+  <div class="src">
+  <span>{{</span>
+  planet
+  <span>}}</span>
+  </div>
+  
+  <h3>Your planet's name repeated three times:</h3> 
+  <ul><li>Earth</li><li>Earth</li><li>Earth</li></ul>
+  
+  <div class="src">
+  <span>{{</span>
+  ("&lt;li&gt;"..planet.."&lt;/li&gt;"):rep(3) 
+  <span>}}</span>
+  </div>
+  
+  <h3> The number of letters in your planet's name: 5 </h3>
+  <div class="src">
+  <span>{{</span>
+  #planet
+  <span>}}</span>
+  </div>
+  <h2>A three by three grid of values:</h2>
+  <table>
+  
+      <tr>
+      
+          <td>(x=1, y=1)</td>
+      
+          <td>(x=1, y=2)</td>
+      
+          <td>(x=1, y=3)</td>
+      
+      </tr>
+  
+      <tr>
+      
+          <td>(x=2, y=1)</td>
+      
+          <td>(x=2, y=2)</td>
+      
+          <td>(x=2, y=3)</td>
+      
+      </tr>
+  
+      <tr>
+      
+          <td>(x=3, y=1)</td>
+      
+          <td>(x=3, y=2)</td>
+      
+          <td>(x=3, y=3)</td>
+      
+      </tr>
+  
+  </table>
+  <p>
+  <div class="src">
+  <span>{%</span>
+  for x=1, 3, 1 do
+  <span>%}</span>
+  <br>&lt;tr&gt;<br>
+  <span>&nbsp;&nbsp;&nbsp;&nbsp;{%</span>
+  for y=1, 3, 1 do
+  <span>%}</span>
+  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;(x=
+  <span>{{</span>
+  x
+  <span>}}</span>, y=
+  <span>{{</span>
+  y
+  <span>}}</span>
+  )&lt;/td&gt;
+  <br>
+  <span>&nbsp;&nbsp;&nbsp;&nbsp;{%</span>
+  end
+  <span>%}</span>
+  <br>
+  &lt;/tr&gt;
+  <br>
+  <span>{%</span>
+  end
+  <span>%}</span>
+  </div>
+  <h3>After the nested for loop:</h3>
+  <h4>The value of x is now 3 </h4>
+  <div class="src">
+  <span>{{</span>
+  x
+  <span>}}</span>
+  </div>
+  <h4>The value of y is now 3 </h4>
+  <div class="src">
+  <span>{{</span>
+  y
+  <span>}}</span>
+  </div>
+  <h5>All template variables are global to all templates being rendered. i.e. this template, the parent template and the parent of that template, and any templates that were included anywhere by any of those templates. </h5>
+  <h5>Also, block names and argument names are in the same namespace; You can replace a block of a template the same way you set variables of a template. See lua source at <a href="#top">top</a>.</h5>
+  --replaced by a block--
+  <p>
+  <div class="src">
+  <span>{%</span>
+  block replaced
+  <span>%}</span>
+  gibberish
+  <span>{%</span>
+  endblock
+  <span>%}</span>
+  </div>
+  <h3>The answer to the universe and everything is: 42 </h3>
+  <div class="src">
+  <span>{{</span>
+  answer()
+  <span>}}</span>
+  </div>
+  <h3> Time taken to generate this template:</h3>
+  <pre>
+  
+  real	0m0.020s
+  user	0m0.015s
+  sys	0m0.003s
+  </pre>
+
+    
+  <div class="space"></div>
+
+  </body>
+</html>
+

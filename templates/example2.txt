@@ -1,0 +1,117 @@
+{% extends 'example.html' %}
+
+{% block title %}The Solar System{% endblock %}
+{% block content %}
+  <pre>
+  -- Lua Source
+  require 'tier.template'
+  local a = tier.Template.load("templates/example2.html")
+  print(a:render{planet="Earth", answer=function() return "42" end})
+  </pre>
+  
+  {% include 'name.html' %}
+  <p>
+  <div class="src">
+  <span>{%</span>
+  include 'name.html'
+  <span>%}</span>
+  </div>
+  <p>
+  <a href="templates/example2.txt">Template Source</a>
+  <h1>Planetary Intranet</h1>
+  <h2>Hello there, visitor from planet {{ planet }}</h2>
+  
+  <div class="src">
+  <span>{{</span>
+  planet
+  <span>}}</span>
+  </div>
+  
+  <h3>Your planet's name repeated three times:</h3> 
+  <ul>{{ ("<li>"..planet.."</li>"):rep(3) }}</ul>
+  
+  <div class="src">
+  <span>{{</span>
+  ("&lt;li&gt;"..planet.."&lt;/li&gt;"):rep(3) 
+  <span>}}</span>
+  </div>
+  
+  <h3> The number of letters in your planet's name: {{ #planet }} </h3>
+  <div class="src">
+  <span>{{</span>
+  #planet
+  <span>}}</span>
+  </div>
+  <h2>A three by three grid of values:</h2>
+  <table>
+  {% for x=1, 3, 1 do %}
+      <tr>
+      {% for y=1, 3, 1 do %}
+          <td>(x={{x}}, y={{y}})</td>
+      {% end %}
+      </tr>
+  {% end %}
+  </table>
+  <p>
+  <div class="src">
+  <span>{%</span>
+  for x=1, 3, 1 do
+  <span>%}</span>
+  <br>&lt;tr&gt;<br>
+  <span>{{("&nbsp;"):rep(4)}}{%</span>
+  for y=1, 3, 1 do
+  <span>%}</span>
+  <br>{{("&nbsp;"):rep(8)}}&lt;td&gt;(x=
+  <span>{{</span>
+  x
+  <span>}}</span>, y=
+  <span>{{</span>
+  y
+  <span>}}</span>
+  )&lt;/td&gt;
+  <br>
+  <span>{{("&nbsp;"):rep(4)}}{%</span>
+  end
+  <span>%}</span>
+  <br>
+  &lt;/tr&gt;
+  <br>
+  <span>{%</span>
+  end
+  <span>%}</span>
+  </div>
+  <h3>After the nested for loop:</h3>
+  <h4>The value of x is now {{ x }} </h4>
+  <div class="src">
+  <span>{{</span>
+  x
+  <span>}}</span>
+  </div>
+  <h4>The value of y is now {{ y }} </h4>
+  <div class="src">
+  <span>{{</span>
+  y
+  <span>}}</span>
+  </div>
+  <h5>All template variables are global to all templates being rendered. i.e. this template, the parent template and the parent of that template, and any templates that were included anywhere by any of those templates. </h5>
+  <h5>Also, block names and argument names are in the same namespace; You can replace a block of a template using render arguments too.</h5>
+  {% block block %}gibberish{% endblock %}
+  
+  <h3>The answer to the universe and everything is: {{ answer() }} </h3>
+  <div class="src">
+  <span>{{</span>
+  answer()
+  <span>}}</span>
+  </div>
+  <h3> Time taken to generate this template:</h3>
+  <pre>
+  
+  real	0m0.020s
+  user	0m0.015s
+  sys	0m0.003s
+  </pre>
+{% endblock %}
+
+{% block footer %}
+  <div class="space"></div>
+{% endblock %}
