@@ -86,34 +86,18 @@
   <h3>After the nested for loop:</h3>
   <h4>The value of x is now {{ x }} </h4>
   <div class="src">
-  <span>{{</span>
-  x
-  <span>}}</span>
+  {{ tier.escape_html [[{{ x }}]] }}
   </div>
   <h4>The value of y is now {{ y }} </h4>
   <div class="src">
-  <span>{{</span>
-  y
-  <span>}}</span>
+  {{ tier.escape_html [[{{ y }}]] }}
   </div>
   <h5>All template variables are global to all templates being rendered. i.e. this template, the parent template and the parent of that template, and any templates that were included anywhere by any of those templates. </h5>
   <h5>Also, block names and argument names are in the same namespace; You can replace a block of a template the same way you set variables of a template. See lua source at <a href="#top">top</a>.</h5>
   {% block replaced %}gibberish{% endblock %}
   <p>
   <div class="src">
-  <span>{%</span>
-  block replaced
-  <span>%}</span>
-  gibberish
-  <span>{%</span>
-  endblock
-  <span>%}</span>
-  </div>
-  <h3>The answer to the universe and everything is: {{ answer() }} </h3>
-  <div class="src">
-  <span>{{</span>
-  answer()
-  <span>}}</span>
+  {{ tier.escape_html [[{% block replaced %}gibberish{% endblock %}]] }}
   </div>
   <h3> Time taken to generate this template:</h3>
   <pre>

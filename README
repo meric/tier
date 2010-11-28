@@ -1,0 +1,33 @@
+A lua template library. It has django style extends and block/endblock.
+See output.html and main.lua for an example.
+
+Besides the for loop, other controls you can use in templates are:
+
+1. repeat..until
+2. if..[elseif]..[else]..end
+3. while..end
+4. for..end
+
+Their syntax is identical to the lua syntax for the same controls. Controls can be nested within each other.
+
+Quickstart
+
+- Template.load(filename)
+Loads a template at filename
+e.g. 
+require 'tier.template'
+local a = tier.Template.load("templates/example2.html")
+
+- template:render(args)
+"args" is a table of arguments to be passed to the template. Returns a string.
+
+e.g.
+require 'tier.template'
+local a = tier.Template.load("templates/example2.html")
+print(a:render{planet="Earth", 
+               answer=function() return "42" end, 
+               name="example2.html",
+               replaced="--replaced by a block--"})
+
+
+

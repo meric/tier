@@ -287,6 +287,8 @@ function Template:parse(str)
         table.insert(tree, Text(str:sub(prev, (start or #str+1)-1), self.path, str, prev))
         if not start then break end
         local tag = str:sub(start, finish)
+        -- a tag split into multiple lines is not a tag
+        -- a tag with an unknown symbol is not a tag, either
         if Tag[tag:sub(2, 2)] and not tag:find("\n") then
             table.insert(tree, Tag(tag, self.path, str, start))
         else

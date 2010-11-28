@@ -101,6 +101,21 @@ function serialize(t)
     return table.concat(o, ";")
 end
 
+-- escape html
+function escape_html(s)
+    local replacement = {"<", "&lt;", 
+                         ">", "&gt;", 
+                         "{{", "\n<span>{{</span>\n",
+                         "{%%", "\n<span>{%%</span>\n",
+                         "%%}", "\n<span>%%}</span>\n",
+                         "}}", "\n<span>}}</span>\n"}
+    local str, n = s, 0;
+    for i=1, #replacement, 2 do
+        str, n = str:gsub(replacement[i], replacement[i+1]);
+    end
+    return str
+end
+
 -- Complete clone of a table
 function clone(u, copied)
     copied = copied or {}
@@ -311,7 +326,7 @@ function List:iter()
     local i = 0
     local prev = Pair(nil, self.first)
     return function()
-        node = prev.cdr
+        local node = prev.cdr
         if not node then 
             return nil 
         end
